@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using FirstAPI.Models;
+using RockersAPI.Models;
+using System;
+using System.Linq;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,11 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<FirstAPIContext>(opt =>
-    opt.UseInMemoryDatabase("TodoList"));
-//builder.Services.AddSwaggerGen(c =>
-//{
-//    c.SwaggerDoc("v1", new() { Title = "TodoApi", Version = "v1" });
-//});
+    opt.UseSqlite());
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "RockerApi", Version = "v1" });
+});
 
 var app = builder.Build();
 
@@ -20,8 +22,8 @@ var app = builder.Build();
 if (builder.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    //app.UseSwagger();
-    //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoApi v1"));
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RockerApi v1"));
 }
 
 app.UseHttpsRedirection();
