@@ -1,5 +1,9 @@
-﻿namespace FirstAPI.Models
+﻿using Newtonsoft.Json;
+
+namespace RockersAPI.Models
 {
+    [Serializable]
+    [JsonObject]
     public class Rocker
     {
         public long Id { get; set; }
